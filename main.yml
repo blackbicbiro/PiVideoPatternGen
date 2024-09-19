@@ -1,0 +1,29 @@
+---
+- name: Build Pi Pattern Signal Generator
+  hosts: all
+  become: true
+
+  pre_tasks:
+    - name: Base | Run apt updates and Upgrade
+      ansible.builtin.apt:
+        upgrade: true
+        update_cache: true
+        cache_valid_time: 3600
+
+    - name: Base | Set Console timeout to 10mins
+      ansible.builtin.lineinfile:
+        path: /etc/profile
+        regexp: 'tmout='
+        line: TMOUT=600
+
+  roles:
+    - common
+
+  post_tasks:
+    - name: Copy over version number of builds
+      ansible.builtin.copy:
+        src: files/version
+        dest: /home/{{ ansible_user }}/
+        owner: root
+        group: root
+        mode: 'u=rw,g=r,o=r'

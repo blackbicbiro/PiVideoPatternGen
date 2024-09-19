@@ -1,0 +1,24 @@
+---
+- name: Common | gstreamer.yml | Create a directory if it does not exist
+  ansible.builtin.file:
+    path: /opt/osu
+    state: directory
+    mode: '0755'
+
+- name: Common | gstreamer.yml | Copy Gstreamer shell startup script
+  ansible.builtin.copy:
+    src: files/gstreamer.sh
+    dest: /opt/osu
+    owner: root
+    group: root
+    mode: u=rwx,g=x,o=x
+  notify: Enable Gstreamer
+
+- name: Common | gstreamer.yml | Copy Gstreamer systemd file over and enable service
+  ansible.builtin.copy:
+    src: files/gstreamer.service
+    dest: /etc/systemd/system/
+    owner: root
+    group: root
+    mode: u=rwx,g=xr,o=x
+  notify: Enable Gstreamer

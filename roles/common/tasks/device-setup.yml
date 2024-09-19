@@ -1,0 +1,25 @@
+---
+# copy over device setup script for seting resolution and NTP
+- name: Common | device-setup.yml | Create a directory if it does not exist
+  ansible.builtin.file:
+    path: /opt/osu
+    state: directory
+    mode: '0755'
+
+
+- name: Common | device-setup.yml | Copy device-setup.sh file over to the /opt/osu folder
+  ansible.builtin.copy:
+    src: files/device-setup.sh
+    dest: /opt/osu/
+    owner: root
+    group: root
+    mode: u=rwx,g=x,o=x
+
+
+- name: Common | device-setup.yml | Create a symbolic for device-setup.sh
+  ansible.builtin.file:
+    src: /opt/osu/device-setup.sh
+    dest: /home/{{ ansible_user }}/device-setup.sh
+    owner: root
+    group: root
+    state: link

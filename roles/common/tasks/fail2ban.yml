@@ -1,0 +1,25 @@
+- name: Common | fail2ban | Create jail.local for best practice
+  ansible.builtin.copy:
+    src: /etc/fail2ban/jail.conf
+    dest: /etc/fail2ban/jail.local
+    force: false
+    owner: root
+    group: root
+    mode: 'u=rw,g=r,o=r'
+    remote_src: true
+
+- name: Common | fail2ban | Change Fail2ban Backend to systemd so it starts
+  ansible.builtin.lineinfile:
+    path: /etc/fail2ban/jail.local
+    regexp: '^backend = auto'
+    line: 'backend = systemd'
+
+- name: Common | fail2ban | Copy sshd.jail template over
+  ansible.builtin.template:
+    src: templates/fail2ban-sshd.conf.j2
+    dest: /etc/fail2ban/jail.d/sshd.conf
+    owner: root
+    group: root
+    mode: 'u=rw,g=r,o=r'
+  become: true
+  notify: Restart fail2ban

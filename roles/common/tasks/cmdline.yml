@@ -1,0 +1,16 @@
+- name: Common | cmdline.yml | add quiet video resoltuion to cmdline.txt file
+  ansible.builtin.lineinfile:
+    path: /boot/firmware/cmdline.txt
+    state: present
+    regexp: '^((?!.*quiet).*console.*)$'
+    line: '\1 quiet'
+    backrefs: true
+
+
+- name: Common | cmdline.yml | add default video resoltuion to cmdline.txt file
+  ansible.builtin.lineinfile:
+    path: /boot/firmware/cmdline.txt
+    state: present
+    regexp: '^((?!.*video=).*console.*)$'
+    line: '\1 video=HDMI-A-1:1920x1080@60p'
+    backrefs: true

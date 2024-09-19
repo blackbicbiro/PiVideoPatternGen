@@ -1,0 +1,10 @@
+---
+
+all:
+  children:
+    local:
+      hosts:
+        hd1-sdi.local
+      vars:
+        ansible_user: met1
+        ansible_port: 22

@@ -1,0 +1,4 @@
+- name: Common | set-clock | Set timezone to UTC
+  become: true
+  community.general.timezone:
+    name: UTC

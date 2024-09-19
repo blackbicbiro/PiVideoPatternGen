@@ -1,0 +1,15 @@
+
+[Unit]
+Description=gstreamer pattern genarator
+After=multi-user.target
+
+[Service]
+Type=simple
+User=root
+Restart=always
+RestartSec=1s
+ExecStart=/opt/osu/gstreamer.sh
+
+[Install]
+WantedBy=multi-user.target
+Alias=gstreamer.service pattern.service

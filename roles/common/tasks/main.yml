@@ -1,0 +1,39 @@
+---
+
+- name: Common | main.yml | Package install
+  ansible.builtin.import_tasks: package-install.yml
+  become: true
+
+- name: Common | main.yml | SSH setup
+  ansible.builtin.import_tasks: ssh.yml
+  become: true
+
+- name: Common | main.yml | fail2ban setup
+  ansible.builtin.import_tasks: fail2ban.yml
+  become: true
+
+- name: Common | main.yml | UFW firewall setup
+  ansible.builtin.import_tasks: ufw.yml
+  become: true
+
+- name: Common | main.yml | Gstreamer setup
+  ansible.builtin.import_tasks: gstreamer.yml
+  become: true
+
+- name: Common | main.yml | Copy over device-setup.sh setup
+  ansible.builtin.import_tasks: device-setup.yml
+  become: true
+
+- name: Common | main.yml | cmdline.txt file setup
+  ansible.builtin.import_tasks: cmdline.yml
+  become: true
+
+- name: Common | main.yml | Set system timezone
+  ansible.builtin.import_tasks: set-clock.yml
+  become: true
+
+
+# FIXME: CHECK AFTER CLEAN BUILD check timesyncd works after install timedatectl, does it need enabling?
+# TODO: Watchdog? do some reading
+# TODO: check raspiberry pi best practices
+# TODO: ssh cert login only?

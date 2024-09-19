@@ -1,0 +1,19 @@
+- name: Base | ufw | Enable SSH SSH
+  community.general.ufw:
+    rule: allow
+    direction: in
+    proto: tcp
+    port: "{{ base_sshd_port | default(22) }}"
+    comment: 'SSH'
+
+- name: Base | ufw | Allow SNMP access in access in
+  community.general.ufw:
+    rule: allow
+    direction: in
+    port: snmp
+    comment: 'prtg/SNMP'
+
+- name: Base | ufw | Enable UFW
+  community.general.ufw:
+    state: enabled
+    policy: allow

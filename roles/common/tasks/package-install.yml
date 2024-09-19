@@ -1,0 +1,21 @@
+---
+- name: Common | Install packages for all builds
+  ansible.builtin.package:
+    name:
+      - btop                        # system status dashboard
+      - bmon
+      - ufw                         # Firewall util
+      - systemd-timesyncd           # ntp server application
+      - ntpdate                     # NTP tool for checking ntp server
+      - fail2ban
+      - tmux
+      - net-tools
+      - gstreamer1.0-*
+      - overlayroot                 # installed by overlay    #FIXME do i need to instal the other packages, or do they auto install when running overlayroot
+      # - cryptsetup-initramfs        # installed by overlay
+      # - haveged                     # installed by overlay
+      # - cryptsetup                  # installed by overlay
+      # - cryptsetup-bin              # installed by overlay
+      # - overlayroot                 # installed by overlay
+
+    state: present
